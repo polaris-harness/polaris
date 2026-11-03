@@ -15,3 +15,11 @@
 #www.{$POLARIS_DOMAIN} {
 #	redir https://{$POLARIS_DOMAIN}{uri} permanent
 #}
+
+# IQVO landing page: https://iqvo.cloud forwards to the warehouse landing-page
+# service (see compose.yaml). IQVO_DOMAIN needs DNS pointing at this host;
+# Caddy manages its certificate the same way.
+{$IQVO_DOMAIN} {
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	reverse_proxy landing-page:8080
+}
